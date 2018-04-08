@@ -8,6 +8,7 @@ class Formulaire extends Component {
     var description = document.getElementById(this.idDesc).value;
     var prix = document.getElementById(this.idPrix).value;
     var image = document.getElementById(this.idImage).value;
+    var stock = document.getElementById(this.idQuantite).value;
     
    
     var key = document.getElementById(this.idKey).value;
@@ -15,7 +16,7 @@ class Formulaire extends Component {
       var key =  Date.now() + "-" + nom;
     }
 
-    var j = {key,nom, description, prix, image};
+    var j = {key,nom, description, prix, image, stock};
     console.log("get info-jouet value:")
     console.log(j);
     return j;    
@@ -27,6 +28,7 @@ class Formulaire extends Component {
     this.idDesc = this.props.typeForm + "desc";
     this.idPrix = this.props.typeForm + "prix";
     this.idImage = this.props.typeForm + "image";
+    this.idQuantite = this.props.typeForm + "quantite";
    
     return (
     <div id = {this.props.typeForm}>
@@ -47,6 +49,9 @@ class Formulaire extends Component {
 
       <div>
       <label>image Url:<br/></label> <input type="text" name="url" id = {this.idImage} defaultValue={this.props.image} />
+      </div>
+      <div>
+      <label>Quantite:<br/></label> <input type="text" name="quantite" id = {this.idQuantite} defaultValue={this.props.quantite} />
       </div>
 
 
