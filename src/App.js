@@ -18,6 +18,13 @@ class App extends Component {
       modifPrix : "",
       modifImage : "",
       modifKey : "" ,
+      modifQuantite : "",
+      ajoutnom  : "",
+      ajoutDesc : "",
+      ajoutKey :  "",
+      ajoutPrix : "",
+      ajoutImage : "",
+      ajoutQuantite : "",
       basket : {},
       basketmessage : ""     
     };
@@ -67,7 +74,7 @@ class App extends Component {
 
         <div className = "container" id = "ajout-form">
         <h2>Ajout </h2>
-        <Formulaire  typeForm = "ajout" ajouterJouet = {this.ajouterJouet.bind(this)} id = "modif-form" />
+        <Formulaire quantite = {this.state.ajoutQuantite} keyval ={this.state.ajoutKey} key ={this.state.ajoutKey} nom={this.state.ajoutnom} desc={this.state.ajoutDesc} prix={this.state.ajoutPrix} image={this.state.ajoutImage}  typeForm = "ajout" ajouterJouet = {this.ajouterJouet.bind(this)} id = "modif-form" />
         </div>
 
         <div className ="container" id = "list-form">
@@ -91,7 +98,7 @@ class App extends Component {
 
         <div className ="container" id = "modif-form">
         <h2>Modification </h2>    
-          <Formulaire keyval ={this.state.modifKey} key ={this.state.modifKey} nom={this.state.modifnom} desc={this.state.modifDesc} prix={this.state.modifPrix} image={this.state.modifImage}  typeForm = "modif" ajouterJouet = {this.ajouterJouet.bind(this)} id = "modif-form" />
+          <Formulaire quantite = {this.state.modifQuantite} keyval ={this.state.modifKey} key ={this.state.modifKey} nom={this.state.modifnom} desc={this.state.modifDesc} prix={this.state.modifPrix} image={this.state.modifImage}  typeForm = "modif" ajouterJouet = {this.ajouterJouet.bind(this)} id = "modif-form" />
         </div>
 
         <div className ="container" id = "list-basket">
@@ -207,6 +214,9 @@ class App extends Component {
       // on met a jour l'etat
       this.setState({ jouets });
       console.log(this.state.jouets)
+
+      this.resetFormulaire();
+
     }
   
     supprimerJouet(key) {
@@ -238,18 +248,19 @@ class App extends Component {
         modifDesc : jouet.description,
         modifKey :  key,
         modifPrix : jouet.prix,
-        modifImage : jouet.image 
+        modifImage : jouet.image,
+        modifQuantite : jouet.stock
       })
     }
 
 
     ajouterbasket(key){
+     
       const basket = { ...this.state.basket };
       const jouets = { ...this.state.jouets };
    
 
-       // Ajouter le nouveau jouet
-       
+       // Ajouter le nouveau jouet       
        var jouetbasket = this.state.basket[key];
        var jouet = this.state.jouets[key];
       if(jouetbasket == null)
@@ -270,18 +281,51 @@ class App extends Component {
       console.log(basket);
        // on met a jour l'etat
        this.setState({  jouets });        
-       this.setState({  basket });        
+       this.setState({  basket });  
+       
+       
+       this.resetFormulaire();             
+    }
+
+    resetFormulaire()
+    {
+      this.setState({
+        modifnom  : "",
+        modifDesc : "",
+        modifKey :  "",
+        modifPrix : "",
+        modifImage : "",
+        modifQuantite : "",
+        ajoutnom  : "",
+        ajoutDesc : "",
+        ajoutKey :  "",
+        ajoutPrix : "",
+        ajoutImage : "",
+        ajoutQuantite : ""
+      
+      })
     }
 
   supprimerBasket(key) {
       // faire une copie de l'objet hobbies
      console.log(key)
-      const basket = { ...this.state.basket };
+    const basket = { ...this.state.basket };
+    const jouets = { ...this.state.jouets };
+   
+    var jouetbasket = basket[key];  
+    var jouet = jouets[key];
+
+
+      jouet.stock = jouet.stock + jouetbasket.stock;
+     
+
+      basket[key] = null;
+      jouets[key] = jouet;
   
-       basket[key] = null;
-       
-  
+
       this.setState({ basket });
+      this.setState({  jouets }); 
+      console.log(this.state.jouets)
       console.log(this.state.basket)
     }
 

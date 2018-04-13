@@ -51,7 +51,7 @@ class Formulaire extends Component {
       <label>image Url:<br/></label> <input type="text" name="url" id = {this.idImage} defaultValue={this.props.image} />
       </div>
       <div>
-      <label>Quantite:<br/></label> <input type="text" name="quantite" id = {this.idQuantite} defaultValue={this.props.quantite} />
+      <label>Quantite:<br/></label> <input type="number" name="quantite" id = {this.idQuantite} defaultValue={this.props.quantite} />
       </div>
 
 
